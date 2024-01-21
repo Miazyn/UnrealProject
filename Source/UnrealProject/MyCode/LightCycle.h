@@ -3,20 +3,38 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UObject/NoExportTypes.h"
+#include "GameFramework/Actor.h"
+
+#include "Engine/DirectionalLight.h"
+
 #include "LightCycle.generated.h"
 
-/**
- * 
- */
 UCLASS()
-class UNREALPROJECT_API ULightCycle : public UObject
+class UNREALPROJECT_API ALightCycle : public AActor
 {
 	GENERATED_BODY()
 	
+public:	
+	// Sets default values for this actor's properties
+	ALightCycle();
 
-public:
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
-	UFUNCTION(BlueprintCallable, Category = "LightCycle")
-		void TransitionToDay();
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	ADirectionalLight* DirectionalLight;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	double RotationDegree = 180.0f;
+
+	bool isNight = false;
+
+	UFUNCTION(BlueprintCallable, Category="Light Cycle")
+	void LightCycleFlipFlop();
+
 };
