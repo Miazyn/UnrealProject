@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "UInventorySlot.h"
 #include "Components/ActorComponent.h"
 #include "UInventoryComponent.generated.h"
 
@@ -25,4 +26,19 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 	
+	
+	struct FInventory
+	{
+		FString InventoryName;
+		int InventorySize;
+		int ItemCap;
+		
+		TArray<UInventorySlot> InventorySlots;
+
+		bool AddItem(UItem* AddedItem, int AddedAmount);
+
+		bool RemoveItem(UItem* RemoveItem, int RemovedAmount);
+
+		int GetTotalItemCount(UItem* QueryItem);
+	};
 };

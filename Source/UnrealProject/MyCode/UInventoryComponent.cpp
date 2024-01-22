@@ -32,3 +32,39 @@ void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 	// ...
 }
 
+
+bool UInventoryComponent::FInventory::AddItem(UItem* AddedItem, int AddedAmount)
+{
+	if(!AddedItem)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Invalid Item while adding to Inventory!"));
+		return  false;
+	}
+	if(AddedAmount <= 0)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Invalid Amount while adding to Inventory!"));
+		return  false;
+	}
+
+	//TODO: Search for Item that exists already. AKA. Add to Stack
+	
+	for(int i = 0; i < InventorySlots.Num(); i++)
+	{
+		
+	}
+	
+	//TODO: Add completely new item to empty slot.
+	
+	return true;
+}
+
+bool UInventoryComponent::FInventory::RemoveItem(UItem* RemoveItem, int RemovedAmount)
+{
+	return true;
+}
+
+int UInventoryComponent::FInventory::GetTotalItemCount(UItem* QueryItem)
+{
+	return 0;
+}
+
