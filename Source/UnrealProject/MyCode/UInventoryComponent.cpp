@@ -45,21 +45,57 @@ bool UInventoryComponent::FInventory::AddItem(UItem* AddedItem, int AddedAmount)
 		UE_LOG(LogTemp, Error, TEXT("Invalid Amount while adding to Inventory!"));
 		return  false;
 	}
-
-	//TODO: Search for Item that exists already. AKA. Add to Stack
 	
+	for(int i = 0; i < InventorySlots.Num(); i++)
+	{
+		if(InventorySlots[i].Item == AddedItem)
+		{
+			if(InventorySlots[i].Amount < ItemCap)
+			{
+				InventorySlots[i].AddAmount(AddedAmount);
+				//TODO: Item Changed Callback
+				return true;
+			}
+		}
+	}
+	
+	//TODO: Add completely new item to empty slot.
+
+	for (int i = 0; i < InventorySlots.Num(); i++)
+	{
+		if(!InventorySlots[i].Item)
+		{
+			InventorySlots[i].Item = AddedItem;
+
+			if(ItemCap < AddedAmount)
+			{
+				InventorySlots[i].AddAmount(ItemCap);
+
+				AddItem(AddedItem, AddedAmount - ItemCap);
+
+				break;
+			}
+			else
+			{
+				InventorySlots[i].AddAmount(AddedAmount);
+				//TODO: Item changed callback
+				return true;
+			}
+		}
+	}
+
+	//Inventory is full
+	return false;
+}
+
+bool UInventoryComponent::FInventory::RemoveItem(UItem* RemoveItem, int RemovedAmount)
+{
+
 	for(int i = 0; i < InventorySlots.Num(); i++)
 	{
 		
 	}
 	
-	//TODO: Add completely new item to empty slot.
-	
-	return true;
-}
-
-bool UInventoryComponent::FInventory::RemoveItem(UItem* RemoveItem, int RemovedAmount)
-{
 	return true;
 }
 

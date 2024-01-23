@@ -24,34 +24,9 @@ public:
 		int Amount;
 		int SlotNumber;
 
-		UItem* GetItem()
-		{
-			return  Item;
-		};
-
-		void SetItem(UItem* NewItem)
-		{
-			Item = NewItem;
-		};
-
 		void AddAmount(int AddedAmount)
 		{
 			Amount += AddedAmount;
-		};
-
-		void SetAmount(int SetAmount)
-		{
-			Amount = SetAmount;
-		};
-
-		int GetSlotNumber()
-		{
-			return SlotNumber;
-		};
-
-		void SetSlotNumber(int AssignedSlotNum)
-		{
-			SlotNumber = AssignedSlotNum;
 		};
 	};
 };

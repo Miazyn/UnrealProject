@@ -33,7 +33,7 @@ public:
 		int InventorySize;
 		int ItemCap;
 		
-		TArray<UInventorySlot> InventorySlots;
+		TArray<UInventorySlot::FInventorySlot> InventorySlots;
 
 		bool AddItem(UItem* AddedItem, int AddedAmount);
 
