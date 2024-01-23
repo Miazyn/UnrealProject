@@ -93,14 +93,36 @@ bool UInventoryComponent::FInventory::RemoveItem(UItem* RemoveItem, int RemovedA
 
 	for(int i = 0; i < InventorySlots.Num(); i++)
 	{
-		
+		if(InventorySlots[i].Item == RemoveItem)
+		{
+			if(InventorySlots[i].Amount - RemovedAmount <= 0)
+			{
+				RemovedAmount -= InventorySlots[i].Amount;
+
+				InventorySlots[i].Amount = 0;
+				InventorySlots[i].Item = nullptr;
+			}
+			else
+			{
+				InventorySlots[i].Amount -= RemovedAmount;
+			}
+		}
 	}
-	
+
+	if(RemovedAmount > 0)
+	{
+		UE_LOG(LogTemp, Log, TEXT("Invalid Remove Number found, End here."));
+		return  false;
+	}
+
+	UE_LOG(LogTemp, Log, TEXT("All Items have been properly removed."));
 	return true;
 }
 
 int UInventoryComponent::FInventory::GetTotalItemCount(UItem* QueryItem)
 {
+
+	
 	return 0;
 }
 
