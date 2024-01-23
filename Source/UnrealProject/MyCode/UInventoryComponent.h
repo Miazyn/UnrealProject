@@ -25,20 +25,20 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Inventory")
+	FString InventoryName;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Inventory")
+	int InventorySize;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Inventory")
+	int ItemCap;
+
 	
-	
-	struct FInventory
-	{
-		FString InventoryName;
-		int InventorySize;
-		int ItemCap;
-		
-		TArray<UInventorySlot::FInventorySlot> InventorySlots;
+	TArray<UInventorySlot> InventorySlots;
 
-		bool AddItem(UItem* AddedItem, int AddedAmount);
-
-		bool RemoveItem(UItem* RemoveItem, int RemovedAmount);
-
-		int GetTotalItemCount(UItem* QueryItem);
-	};
+	UFUNCTION(BlueprintCallable, Category="Inventory")
+	bool AddItem(UItem* AddedItem, int AddedAmount);
+	UFUNCTION(BlueprintCallable, Category="Inventory")
+	bool RemoveItem(UItem* RemoveItem, int RemovedAmount);
+	UFUNCTION(BlueprintCallable, Category="Inventory")
+	int GetTotalItemCount(UItem* QueryItem);
 };

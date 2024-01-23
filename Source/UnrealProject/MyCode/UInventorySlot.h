@@ -18,15 +18,12 @@ class UNREALPROJECT_API UInventorySlot : public UObject
 
 public:
 	
-	struct FInventorySlot
-	{
-		UItem* Item;
-		int Amount;
-		int SlotNumber;
+	UItem* Item;
+	int Amount;
+	int SlotNumber;
 
-		void AddAmount(int AddedAmount)
-		{
-			Amount += AddedAmount;
-		};
+	void AddAmount(int AddedAmount)
+	{
+		Amount += AddedAmount;
 	};
 };

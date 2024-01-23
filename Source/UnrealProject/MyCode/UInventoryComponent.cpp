@@ -10,6 +10,7 @@ UInventoryComponent::UInventoryComponent()
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
+	InventorySlots.SetNumUninitialized(InventorySize);
 	// ...
 }
 
@@ -32,8 +33,9 @@ void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 	// ...
 }
 
+//TODO: Add slot Num to all
 
-bool UInventoryComponent::FInventory::AddItem(UItem* AddedItem, int AddedAmount)
+bool UInventoryComponent::AddItem(UItem* AddedItem, int AddedAmount)
 {
 	if(!AddedItem)
 	{
@@ -63,7 +65,7 @@ bool UInventoryComponent::FInventory::AddItem(UItem* AddedItem, int AddedAmount)
 
 	for (int i = 0; i < InventorySlots.Num(); i++)
 	{
-		if(!InventorySlots[i].Item)
+		if(InventorySlots[i].Item == nullptr)
 		{
 			InventorySlots[i].Item = AddedItem;
 
@@ -75,12 +77,10 @@ bool UInventoryComponent::FInventory::AddItem(UItem* AddedItem, int AddedAmount)
 
 				break;
 			}
-			else
-			{
-				InventorySlots[i].AddAmount(AddedAmount);
-				//TODO: Item changed callback
-				return true;
-			}
+			InventorySlots[i].AddAmount(AddedAmount);
+			//TODO: Item changed callback
+			return true;
+			
 		}
 	}
 
@@ -88,8 +88,14 @@ bool UInventoryComponent::FInventory::AddItem(UItem* AddedItem, int AddedAmount)
 	return false;
 }
 
-bool UInventoryComponent::FInventory::RemoveItem(UItem* RemoveItem, int RemovedAmount)
+bool UInventoryComponent::RemoveItem(UItem* RemoveItem, int RemovedAmount)
 {
+
+	if(GetTotalItemCount(RemoveItem) <= 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Cannot remove UItem as it is not existant inside of the FInventory."));
+		return false;
+	}
 
 	for(int i = 0; i < InventorySlots.Num(); i++)
 	{
@@ -119,10 +125,18 @@ bool UInventoryComponent::FInventory::RemoveItem(UItem* RemoveItem, int RemovedA
 	return true;
 }
 
-int UInventoryComponent::FInventory::GetTotalItemCount(UItem* QueryItem)
+int UInventoryComponent::GetTotalItemCount(UItem* QueryItem)
 {
+	int Counter = 0;
 
+	for(int i = 0; i < InventorySlots.Num(); i++)
+	{
+		if(InventorySlots[i].Item == QueryItem)
+		{
+			Counter += InventorySlots[i].Amount;
+		}
+	}
 	
-	return 0;
+	return Counter;
 }
 
