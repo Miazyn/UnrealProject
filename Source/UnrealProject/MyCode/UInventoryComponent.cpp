@@ -33,7 +33,6 @@ void UInventoryComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 	// ...
 }
 
-//TODO: Add slot Num to all
 
 bool UInventoryComponent::AddItem(UItem* AddedItem, int AddedAmount)
 {
