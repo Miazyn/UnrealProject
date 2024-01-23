@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "APickUp.generated.h"
 
+class UCapsuleComponent;
+
 UCLASS()
 class UNREALPROJECT_API AAPickUp : public AActor
 {
@@ -15,6 +17,11 @@ public:
 	// Sets default values for this actor's properties
 	AAPickUp();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
+	UCapsuleComponent* CapsuleComp;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
+	UStaticMeshComponent* BaseMesh;
+	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
