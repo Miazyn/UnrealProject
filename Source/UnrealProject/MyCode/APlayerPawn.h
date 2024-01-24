@@ -20,4 +20,23 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
 	UInventoryComponent* InventoryComp;
+
+	UPROPERTY(EditAnywhere)
+	float MoveSpeed = 800.f;
+	UPROPERTY(EditAnywhere)
+	float RotateSpeed = 250.f;
+
+	FVector MoveDirection;
+	FQuat RotationDirection;
+
+	void CalculateMovementInput(float Value);
+	void CalculateRotationInput(float Value);
+	
+	void Move();
+	void Rotate();
+
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	virtual void Tick(float DeltaSeconds) override;
 };

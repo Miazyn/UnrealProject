@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "UItem.h"
 #include "GameFramework/Actor.h"
 #include "APickUp.generated.h"
 
@@ -21,6 +22,9 @@ public:
 	UCapsuleComponent* CapsuleComp;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
 	UStaticMeshComponent* BaseMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Inventory");
+	UItem* ItemPickUp;
 	
 protected:
 	// Called when the game starts or when spawned
