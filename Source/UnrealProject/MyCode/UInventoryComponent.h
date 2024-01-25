@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UInventorySlot.h"
 #include "Components/ActorComponent.h"
+#include "UItem.h"
 #include "UInventoryComponent.generated.h"
 
 
@@ -41,4 +42,8 @@ public:
 	bool RemoveItem(UItem* RemoveItem, int RemovedAmount);
 	UFUNCTION(BlueprintCallable, Category="Inventory")
 	int GetTotalItemCount(UItem* QueryItem);
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Inventory")
+	UItem* NewItem;
 };

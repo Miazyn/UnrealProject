@@ -4,8 +4,7 @@
 
 #include "CoreMinimal.h"
 //#include "UObject/NoExportTypes.h"
-//#include "Components/Image.h"
-
+#include "Engine/Texture.h"
 #include "UItem.generated.h"
 
 
@@ -16,6 +15,7 @@ enum EItemType
 	Material     UMETA(DisplayName = "Material"),
 	Consumable      UMETA(DisplayName = "Consumable"),
 };
+
 /**
  * 
  */
@@ -24,8 +24,6 @@ class UNREALPROJECT_API UItem : public UObject
 {
 	GENERATED_BODY()
 
-		
-	
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
@@ -39,10 +37,9 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FString ItemId;
-	
-	//TODO: Later maybe add images as possibility for now use standardized one
-	//UImage* ItemIcon;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Item")
+	UTexture* ItemImage;
 
 	virtual void UseItem();
-	
 };

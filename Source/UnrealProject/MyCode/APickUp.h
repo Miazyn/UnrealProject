@@ -3,7 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UItem.h"
 #include "GameFramework/Actor.h"
 #include "APickUp.generated.h"
 
@@ -23,9 +22,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
 	UStaticMeshComponent* BaseMesh;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Inventory");
-	UItem* ItemPickUp;
-	
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -34,4 +30,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	
 };

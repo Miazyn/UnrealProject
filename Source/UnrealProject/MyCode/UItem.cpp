@@ -3,6 +3,7 @@
 
 #include "UItem.h"
 
+
 void UItem::UseItem()
 {
 	if(ItemName != "" && ItemType == EItemType::Consumable)
@@ -10,3 +11,4 @@ void UItem::UseItem()
 		UE_LOG(LogTemp, Log, TEXT("Using Item: %s"), *FString(ItemName));
 	}
 }
+
