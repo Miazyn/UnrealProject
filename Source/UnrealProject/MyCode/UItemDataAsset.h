@@ -4,19 +4,32 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
+#include "Engine/DataTable.h"
 #include "UItemDataAsset.generated.h"
 
 /**
  * 
  */
+USTRUCT(BlueprintType)
+struct FItemData : public FTableRowBase
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString ItemName;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString ItemDescription;
+
+};
+
 UCLASS()
 class UNREALPROJECT_API UUItemDataAsset : public UDataAsset
 {
 	GENERATED_BODY()
 
 public:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item")
-	FString ItemName;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item")
-	FString ItemDescription;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item Data")
+	UDataTable* ItemDataTable;
 };

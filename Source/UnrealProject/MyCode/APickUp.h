@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "UItemDataAsset.h"
 #include "GameFramework/Actor.h"
 #include "APickUp.generated.h"
 
@@ -30,5 +31,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data")
+	UUItemDataAsset* ItemDataAsset;
 };
