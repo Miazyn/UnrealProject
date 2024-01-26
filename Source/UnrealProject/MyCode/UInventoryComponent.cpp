@@ -60,7 +60,6 @@ bool UInventoryComponent::AddItem(UItem* AddedItem, int AddedAmount)
 		}
 	}
 	
-	//TODO: Add completely new item to empty slot.
 
 	for (int i = 0; i < InventorySlots.Num(); i++)
 	{
