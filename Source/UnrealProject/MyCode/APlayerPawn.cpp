@@ -16,6 +16,12 @@ void AAPlayerPawn::Tick(float DeltaSeconds)
 
 }
 
+void AAPlayerPawn::MoveForward(float AxisValue)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Found AxisValue"));
+	AddMovementInput(GetActorForwardVector() + AxisValue);
+}
+
 
 void AAPlayerPawn::LookUp(float AxisValue)
 {
@@ -26,7 +32,7 @@ void AAPlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	//PlayerInputComponent->BindAxis("MoveForward", this, &AAPlayerPawn::CalculateMovementInput);
+	PlayerInputComponent->BindAxis("MoveForward", this, &AAPlayerPawn::MoveForward);
 	PlayerInputComponent->BindAxis("LookUp", this, &AAPlayerPawn::LookUp);
 }
 
