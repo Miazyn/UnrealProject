@@ -4,11 +4,14 @@
 #include "UItemDataAsset.h"
 
 #include "UItem.h"
+#include "Net/RepLayout.h"
 
-FString UUItemDataAsset::GetItemName()
+FItemStruct UUItemDataAsset::GetItemInfo()
 {
 	const TMap<FName, uint8*>& RowMap = this->ItemDataTable->GetRowMap();
 
+	FItemStruct ItemStruct;
+	
 	if (RowMap.Num() > 0)
 	{
 		auto Iterator = RowMap.CreateConstIterator();
@@ -19,11 +22,21 @@ FString UUItemDataAsset::GetItemName()
 
 			FItemData* ItemData = reinterpret_cast<FItemData*>(FirstEntry.Value);
 
-			FString ItemName = ItemData->ItemName;
-
-			return ItemName;
+			ItemStruct.ItemName = ItemData->ItemName;
+			ItemStruct.ItemDescription = ItemData->ItemDescription;
+			ItemStruct.ItemId = ItemData->ItemId;
+			ItemStruct.ItemIcon = ItemData->ItemIcon;
+			ItemStruct.ItemType = ItemData->ItemType;
+			
+			return ItemStruct;
 		}
 	}
 
-	return "NameNotFound";
+	ItemStruct.ItemName = "None";
+	ItemStruct.ItemDescription = "None";
+	ItemStruct.ItemId = "Error";
+	ItemStruct.ItemIcon = nullptr;
+	ItemStruct.ItemType = EItemType::Consumable;
+	
+	return ItemStruct;
 }

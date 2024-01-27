@@ -75,9 +75,15 @@ void APlayerCharacter::Interact()
 		{
 			UItem* NewItem = NewObject<UItem>(this, UItem::StaticClass());
 
-			NewItem->ItemName = PickedUpActor->ItemDataAsset->GetItemName();
+			FItemStruct ItemStruct = PickedUpActor->ItemDataAsset->GetItemInfo();
 
-			UE_LOG(LogTemp, Warning, TEXT("Working PickUp. %s"), *NewItem->ItemName);
+			NewItem->ItemName = ItemStruct.ItemName;
+			NewItem->ItemDescription = ItemStruct.ItemDescription;
+			NewItem->ItemId = ItemStruct.ItemId;
+			NewItem->ItemType = ItemStruct.ItemType;
+			NewItem->ItemImage = ItemStruct.ItemIcon;
+
+			UE_LOG(LogTemp, Warning, TEXT("Working PickUp. %s Also %s"), *NewItem->ItemName, *NewItem->ItemDescription);
 
 			PickedUpActor->Destroy();
 		}

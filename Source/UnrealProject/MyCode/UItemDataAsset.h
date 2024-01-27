@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "UItem.h"
 #include "Engine/DataAsset.h"
 #include "Engine/DataTable.h"
 #include "UItemDataAsset.generated.h"
@@ -21,7 +22,24 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ItemDescription;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TEnumAsByte<EItemType> ItemType;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString ItemId;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UTexture* ItemIcon;
+};
 
+struct FItemStruct
+{
+	FString ItemName;
+	FString ItemDescription;
+	EItemType ItemType;
+	FString ItemId;
+	UTexture* ItemIcon;
 };
 
 UCLASS()
@@ -33,5 +51,5 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item Data")
 	UDataTable* ItemDataTable;
 
-	FString GetItemName();
+	FItemStruct GetItemInfo();
 };
