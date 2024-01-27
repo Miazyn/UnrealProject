@@ -3,6 +3,10 @@
 
 #include "PlayerCharacter.h"
 
+#include "APickUp.h"
+#include "UItem.h"
+#include "UObject/ObjectRename.h"
+
 // Sets default values
 APlayerCharacter::APlayerCharacter()
 {
@@ -34,6 +38,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis("LookUp", this, &APlayerCharacter::LookUp);
 	PlayerInputComponent->BindAxis("MoveRight", this, &APlayerCharacter::MoveRight);
 	PlayerInputComponent->BindAxis("LookRight", this, &APlayerCharacter::LookRight);
+
+	PlayerInputComponent->BindAction("Interact", IE_Pressed,this,  &APlayerCharacter::Interact);
 }
 
 void APlayerCharacter::MoveForward(float AxisValue)
@@ -54,5 +60,27 @@ void APlayerCharacter::MoveRight(float AxisValue)
 void APlayerCharacter::LookRight(float AxisValue)
 {
 	AddControllerYawInput(AxisValue);
+}
+
+void APlayerCharacter::Interact()
+{
+	TArray<AActor*> OverlappingActors;
+
+	GetOverlappingActors(OverlappingActors, AAPickUp::StaticClass());
+
+	for (AActor* OverlappingActor : OverlappingActors)
+	{
+		AAPickUp* PickedUpActor = Cast<AAPickUp>(OverlappingActor);
+		if (PickedUpActor)
+		{
+			UItem* NewItem = NewObject<UItem>(this, UItem::StaticClass());
+
+			NewItem->ItemName = PickedUpActor->ItemDataAsset->GetItemName();
+
+			UE_LOG(LogTemp, Warning, TEXT("Working PickUp. %s"), *NewItem->ItemName);
+
+			PickedUpActor->Destroy();
+		}
+	}
 }
 

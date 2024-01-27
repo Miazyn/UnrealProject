@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UItemDataAsset.h"
+#include "Components/SphereComponent.h"
 #include "GameFramework/Actor.h"
 #include "APickUp.generated.h"
 
@@ -19,7 +20,7 @@ public:
 	AAPickUp();
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
-	UCapsuleComponent* CapsuleComp;
+	USphereComponent* SphereComp;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
 	UStaticMeshComponent* BaseMesh;
 
@@ -33,4 +34,6 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data")
 	UUItemDataAsset* ItemDataAsset;
+
+	
 };

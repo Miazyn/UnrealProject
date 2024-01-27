@@ -32,4 +32,6 @@ class UNREALPROJECT_API UUItemDataAsset : public UDataAsset
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Item Data")
 	UDataTable* ItemDataTable;
+
+	FString GetItemName();
 };

@@ -32,4 +32,6 @@ private:
 
 	void MoveRight(float AxisValue);
 	void LookRight(float AxisValue);
+
+	void Interact();
 };
