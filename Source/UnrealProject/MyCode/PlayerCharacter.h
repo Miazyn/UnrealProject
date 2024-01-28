@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "UInventoryComponent.h"
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
 
@@ -15,17 +16,20 @@ public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
-public:	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
+	UInventoryComponent* PlayerInventory;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+	
 private:
 	void MoveForward(float AxisValue);
 	void LookUp(float AxisValue);
@@ -34,4 +38,6 @@ private:
 	void LookRight(float AxisValue);
 
 	void Interact();
+
+	
 };

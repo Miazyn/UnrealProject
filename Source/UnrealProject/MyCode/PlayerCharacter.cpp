@@ -13,6 +13,7 @@ APlayerCharacter::APlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	PlayerInventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
 }
 
 // Called when the game starts or when spawned
@@ -85,6 +86,7 @@ void APlayerCharacter::Interact()
 
 			UE_LOG(LogTemp, Warning, TEXT("Working PickUp. %s Also %s"), *NewItem->ItemName, *NewItem->ItemDescription);
 
+			
 			PickedUpActor->Destroy();
 		}
 	}
