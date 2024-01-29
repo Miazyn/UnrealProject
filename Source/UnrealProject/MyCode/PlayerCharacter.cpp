@@ -18,7 +18,7 @@ APlayerCharacter::APlayerCharacter()
 
 	PlayerInventory->InventorySlots.SetNumZeroed(InventorySize);
 
-	//PlayerInventory->ItemCap = this->ItemCap;
+	PlayerInventory->ItemCap = this->ItemCap;
 	
 }
 
@@ -91,8 +91,10 @@ void APlayerCharacter::Interact()
 
 			UE_LOG(LogTemp, Warning, TEXT("Working PickUp. %s Also %s"), *NewItem->ItemName, *NewItem->ItemDescription);
 
-			
+			if(PlayerInventory->AddItem(NewItem, 1))
+			{
 				PickedUpActor->Destroy();
+			}
 			
 			
 		
