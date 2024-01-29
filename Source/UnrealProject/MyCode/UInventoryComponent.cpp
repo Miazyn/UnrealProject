@@ -4,15 +4,11 @@
 #include "UInventoryComponent.h"
 
 // Sets default values for this component's properties
-UInventoryComponent::UInventoryComponent()
+UInventoryComponent::UInventoryComponent(): InventorySize(32), ItemCap(99), NewItem(nullptr)
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	
-	InventorySlots.SetNumUninitialized(InventorySize);
-	// ...
 }
 
 
@@ -55,7 +51,6 @@ bool UInventoryComponent::AddItem(UItem* AddedItem, int AddedAmount)
 			if(InventorySlots[i].Amount < ItemCap)
 			{
 				InventorySlots[i].AddAmount(AddedAmount);
-				//TODO: Item Changed Callback
 				return true;
 			}
 		}
@@ -77,12 +72,12 @@ bool UInventoryComponent::AddItem(UItem* AddedItem, int AddedAmount)
 				break;
 			}
 			InventorySlots[i].AddAmount(AddedAmount);
-			//TODO: Item changed callback
 			return true;
 			
 		}
 	}
 
+	UE_LOG(LogTemp, Log, TEXT("Inventory full"));
 	//Inventory is full
 	return false;
 }
@@ -119,6 +114,7 @@ bool UInventoryComponent::RemoveItem(UItem* RemoveItem, int RemovedAmount)
 		UE_LOG(LogTemp, Log, TEXT("Invalid Remove Number found, End here."));
 		return  false;
 	}
+	
 
 	UE_LOG(LogTemp, Log, TEXT("All Items have been properly removed."));
 	return true;
@@ -128,14 +124,17 @@ int UInventoryComponent::GetTotalItemCount(UItem* QueryItem)
 {
 	int Counter = 0;
 
-	for(int i = 0; i < InventorySlots.Num(); i++)
-	{
-		if(InventorySlots[i].Item == QueryItem)
-		{
-			Counter += InventorySlots[i].Amount;
+	 for(int i = 0; i < InventorySlots.Num(); i++)
+	 {
+	 	if(InventorySlots[i].Item == QueryItem)
+	 	{
+	 		Counter += InventorySlots[i].Amount;
 		}
-	}
+	 }
 	
 	return Counter;
 }
+
+
+
 

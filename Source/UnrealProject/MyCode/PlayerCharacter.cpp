@@ -5,6 +5,7 @@
 
 #include "APickUp.h"
 #include "UItem.h"
+#include "UInventoryComponent.h"
 #include "UObject/ObjectRename.h"
 
 // Sets default values
@@ -13,7 +14,12 @@ APlayerCharacter::APlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	PlayerInventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("Inventory"));
+	PlayerInventory = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
+
+	PlayerInventory->InventorySlots.SetNumZeroed(InventorySize);
+
+	//PlayerInventory->ItemCap = this->ItemCap;
+	
 }
 
 // Called when the game starts or when spawned
@@ -72,8 +78,7 @@ void APlayerCharacter::Interact()
 	for (AActor* OverlappingActor : OverlappingActors)
 	{
 		AAPickUp* PickedUpActor = Cast<AAPickUp>(OverlappingActor);
-		if (PickedUpActor)
-		{
+		
 			UItem* NewItem = NewObject<UItem>(this, UItem::StaticClass());
 
 			FItemStruct ItemStruct = PickedUpActor->ItemDataAsset->GetItemInfo();
@@ -87,8 +92,12 @@ void APlayerCharacter::Interact()
 			UE_LOG(LogTemp, Warning, TEXT("Working PickUp. %s Also %s"), *NewItem->ItemName, *NewItem->ItemDescription);
 
 			
-			PickedUpActor->Destroy();
-		}
+				PickedUpActor->Destroy();
+			
+			
+		
 	}
 }
+
+
 

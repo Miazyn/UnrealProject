@@ -32,7 +32,6 @@ public:
 	int InventorySize;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Inventory")
 	int ItemCap;
-
 	
 	TArray<UInventorySlot> InventorySlots;
 
@@ -46,4 +45,5 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Inventory")
 	UItem* NewItem;
+
 };

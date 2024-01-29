@@ -16,6 +16,10 @@ struct FItemData : public FTableRowBase
 {
 	GENERATED_BODY()
 
+	FItemData(): ItemType(EItemType::General), ItemIcon(nullptr)
+	{
+	}
+
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString ItemName;
@@ -52,4 +56,7 @@ public:
 	UDataTable* ItemDataTable;
 
 	FItemStruct GetItemInfo();
+
+	
+	
 };

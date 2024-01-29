@@ -8,35 +8,36 @@
 
 FItemStruct UUItemDataAsset::GetItemInfo()
 {
-	const TMap<FName, uint8*>& RowMap = this->ItemDataTable->GetRowMap();
-
-	FItemStruct ItemStruct;
+		FItemStruct ItemStruct;
 	
-	if (RowMap.Num() > 0)
-	{
-		auto Iterator = RowMap.CreateConstIterator();
+		const TMap<FName, uint8*>& RowMap = this->ItemDataTable->GetRowMap();
 
-		if (Iterator)
+		if (RowMap.Num() > 0)
 		{
-			const TPair<FName, uint8*>& FirstEntry = *Iterator;
+			auto Iterator = RowMap.CreateConstIterator();
 
-			FItemData* ItemData = reinterpret_cast<FItemData*>(FirstEntry.Value);
+			if (Iterator)
+			{
+				const TPair<FName, uint8*>& FirstEntry = *Iterator;
 
-			ItemStruct.ItemName = ItemData->ItemName;
-			ItemStruct.ItemDescription = ItemData->ItemDescription;
-			ItemStruct.ItemId = ItemData->ItemId;
-			ItemStruct.ItemIcon = ItemData->ItemIcon;
-			ItemStruct.ItemType = ItemData->ItemType;
+				FItemData* ItemData = reinterpret_cast<FItemData*>(FirstEntry.Value);
+
+				ItemStruct.ItemName = ItemData->ItemName;
+				ItemStruct.ItemDescription = ItemData->ItemDescription;
+				ItemStruct.ItemId = ItemData->ItemId;
+				ItemStruct.ItemIcon = ItemData->ItemIcon;
+				ItemStruct.ItemType = ItemData->ItemType;
 			
-			return ItemStruct;
+				return ItemStruct;
+			}
 		}
-	}
+	
 
 	ItemStruct.ItemName = "None";
 	ItemStruct.ItemDescription = "None";
 	ItemStruct.ItemId = "Error";
 	ItemStruct.ItemIcon = nullptr;
-	ItemStruct.ItemType = EItemType::Consumable;
+	ItemStruct.ItemType = EItemType::General;
 	
 	return ItemStruct;
 }

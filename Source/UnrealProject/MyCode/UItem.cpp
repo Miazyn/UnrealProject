@@ -6,7 +6,7 @@
 
 void UItem::UseItem()
 {
-	if(ItemName != "" && ItemType == EItemType::Consumable)
+	if(ItemName.IsEmpty() && ItemType == EItemType::Consumable)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Using Item: %s"), *FString(ItemName));
 	}

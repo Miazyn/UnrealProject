@@ -20,6 +20,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta= (AllowPrivateAccess = true))
 	UInventoryComponent* PlayerInventory;
 
+	int InventorySize = 32;
+	int ItemCap = 99;
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -39,5 +42,4 @@ private:
 
 	void Interact();
 
-	
 };
