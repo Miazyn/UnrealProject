@@ -43,6 +43,11 @@ bool UInventoryComponent::AddItem(UItem* AddedItem, int AddedAmount)
 		UE_LOG(LogTemp, Error, TEXT("Invalid Amount while adding to Inventory!"));
 		return  false;
 	}
+
+	if(InventorySlots.IsEmpty())
+	{
+		return false;
+	}
 	
 	for(int i = 0; i < InventorySlots.Num(); i++)
 	{

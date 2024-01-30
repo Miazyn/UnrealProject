@@ -90,14 +90,19 @@ void APlayerCharacter::Interact()
 
 			UE_LOG(LogTemp, Warning, TEXT("Working PickUp. %s Also %s"), *NewItem->ItemName, *NewItem->ItemDescription);
 
+		if(PlayerInventory)
+		{
 			if(PlayerInventory->AddItem(NewItem, 1))
 			{
 				PickedUpActor->Destroy();
 			}
-			
-			
-		
+		}
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("PlayerInventory is nullptr"));
+		}
 	}
+
 }
 
 
