@@ -21,6 +21,7 @@ void UInventoryWidget::InitializeInventory(int32 NumSlots)
 
 void UInventoryWidget::AddItemToInventory(const FString& ItemName, int32 SlotIndex)
 {
+	UE_LOG(LogTemp, Log, TEXT("Inventory added item: %s"), *ItemName);
 	/*
 	if (InventorySlots.IsValidIndex(SlotIndex))
 	{

@@ -6,6 +6,7 @@
 #include "APickUp.h"
 #include "UItem.h"
 #include "UInventoryComponent.h"
+#include "UI/InventoryWidget.h"
 #include "UObject/ObjectRename.h"
 
 // Sets default values
@@ -94,6 +95,10 @@ void APlayerCharacter::Interact()
 		{
 			if(PlayerInventory->AddItem(NewItem, 1))
 			{
+				if(InventoryWidget)
+				{
+					InventoryWidget.GetDefaultObject()->AddItemToInventory(NewItem->ItemName, 0);
+				}
 				PickedUpActor->Destroy();
 			}
 		}
