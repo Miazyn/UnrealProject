@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "UnrealProject/MyCode/UInventorySlot.h"
+#include "UnrealProject/MyCode/UItem.h"
 
 #include "InventoryItemWidget.generated.h"
 
@@ -18,5 +18,15 @@ class UNREALPROJECT_API UInventoryItemWidget : public UUserWidget
 
 
 public:
-	UInventorySlot* InventorySlot;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UItem* InventorySlotItem;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int SlotNumber;
+
+protected:
+	virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+	virtual void NativeOnDragDetected(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent, UDragDropOperation*& OutOperation) override;
+
+	FVector2D DragOffset;
 };

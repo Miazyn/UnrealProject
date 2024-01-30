@@ -34,7 +34,7 @@ public:
 	FString ItemId;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UTexture* ItemIcon;
+	UTexture2D* ItemIcon;
 };
 
 struct FItemStruct
@@ -43,7 +43,7 @@ struct FItemStruct
 	FString ItemDescription;
 	EItemType ItemType;
 	FString ItemId;
-	UTexture* ItemIcon;
+	UTexture2D* ItemIcon;
 };
 
 UCLASS()

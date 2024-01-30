@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 //#include "UObject/NoExportTypes.h"
-#include "Engine/Texture.h"
 #include "UItem.generated.h"
 
 
@@ -39,7 +38,7 @@ public:
 	FString ItemId;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Item")
-	UTexture* ItemImage;
+	UTexture2D* ItemImage;
 
 	virtual void UseItem();
 };

@@ -28,6 +28,4 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void AddItemToInventory(const FString& ItemName, int32 SlotIndex);
 
-
-	//More drag and drop
 };

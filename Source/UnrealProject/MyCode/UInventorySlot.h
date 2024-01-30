@@ -17,7 +17,7 @@ class UNREALPROJECT_API UInventorySlot : public UObject
 	GENERATED_BODY()
 
 public:
-	
+
 	UItem* Item;
 	int Amount;
 	int SlotNumber;
