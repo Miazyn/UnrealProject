@@ -8,6 +8,8 @@ void UInventoryWidget::InitializeInventory(int32 NumSlots)
 {
 	InventorySlots.Empty();
 
+	UE_LOG(LogTemp, Log, TEXT("Inventory Initialized with: %d"), NumSlots);
+
 	/*
 	for (int32 i = 0; i < NumSlots; ++i)
 	{

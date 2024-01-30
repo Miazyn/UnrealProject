@@ -24,10 +24,11 @@ protected:
 	
 public:
 
-	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	UFUNCTION(BlueprintCallable,  Category = "Inventory")
 	void InitializeInventory(int32 NumSlots);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void AddItemToInventory(const FString& ItemName, int32 SlotIndex);
+
 
 };
