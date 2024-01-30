@@ -8,15 +8,18 @@ void UInventoryWidget::InitializeInventory(int32 NumSlots)
 {
 	InventorySlots.Empty();
 
+	/*
 	for (int32 i = 0; i < NumSlots; ++i)
 	{
 		UInventoryItemWidget* ItemWidget = CreateWidget<UInventoryItemWidget>(GetWorld(), ItemWidgetClass);
 		InventorySlots.Add(ItemWidget);
 	}
+	*/
 }
 
 void UInventoryWidget::AddItemToInventory(const FString& ItemName, int32 SlotIndex)
 {
+	/*
 	if (InventorySlots.IsValidIndex(SlotIndex))
 	{
 		UInventoryItemWidget* ItemWidget = InventorySlots[SlotIndex];
@@ -25,4 +28,5 @@ void UInventoryWidget::AddItemToInventory(const FString& ItemName, int32 SlotInd
 			// Set other properties or handle item data as needed.
 		}
 	}
+	*/
 }

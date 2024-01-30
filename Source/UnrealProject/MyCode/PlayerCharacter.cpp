@@ -19,7 +19,6 @@ APlayerCharacter::APlayerCharacter()
 	PlayerInventory->InventorySlots.SetNumZeroed(InventorySize);
 
 	PlayerInventory->ItemCap = this->ItemCap;
-	
 }
 
 // Called when the game starts or when spawned

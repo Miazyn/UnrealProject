@@ -15,13 +15,15 @@ class UNREALPROJECT_API UInventoryWidget : public UUserWidget
 	GENERATED_BODY()
 
 protected:
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Inventory")
 	TSubclassOf<class UInventoryItemWidget> ItemWidgetClass;
-
+       
 	UPROPERTY(BlueprintReadOnly, Category = "Inventory")
 	TArray<UInventoryItemWidget*> InventorySlots;
-
+	
 public:
+
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void InitializeInventory(int32 NumSlots);
 
