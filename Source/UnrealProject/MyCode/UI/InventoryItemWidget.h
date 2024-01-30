@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "UnrealProject/MyCode/UInventorySlot.h"
+
 #include "InventoryItemWidget.generated.h"
 
 /**
@@ -16,5 +18,5 @@ class UNREALPROJECT_API UInventoryItemWidget : public UUserWidget
 
 
 public:
-	FString ItemName;
+	UInventorySlot* InventorySlot;
 };

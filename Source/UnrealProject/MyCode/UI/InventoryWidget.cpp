@@ -22,7 +22,6 @@ void UInventoryWidget::AddItemToInventory(const FString& ItemName, int32 SlotInd
 		UInventoryItemWidget* ItemWidget = InventorySlots[SlotIndex];
 		if (ItemWidget)
 		{
-			ItemWidget->ItemName = ItemName;
 			// Set other properties or handle item data as needed.
 		}
 	}
