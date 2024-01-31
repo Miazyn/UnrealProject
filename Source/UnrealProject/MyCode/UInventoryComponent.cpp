@@ -140,6 +140,19 @@ int UInventoryComponent::GetTotalItemCount(UItem* QueryItem)
 	return Counter;
 }
 
+int UInventoryComponent::GetSlotNum(UItem* QueryItem)
+{
+	for(int i = 0; i < InventorySlots.Num(); i++)
+	{
+		if(InventorySlots[i].Item == QueryItem)
+		{
+			return  i;
+		}
+	}
+
+	return 0;
+}
+
 
 
 

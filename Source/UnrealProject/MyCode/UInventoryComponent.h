@@ -41,7 +41,8 @@ public:
 	bool RemoveItem(UItem* RemoveItem, int RemovedAmount);
 	UFUNCTION(BlueprintCallable, Category="Inventory")
 	int GetTotalItemCount(UItem* QueryItem);
-
+	UFUNCTION(BlueprintCallable, Category="Inventory")
+	int GetSlotNum(UItem* QueryItem);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Inventory")
 	UItem* NewItem;

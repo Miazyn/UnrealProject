@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/UniformGridPanel.h"
+#include "UnrealProject/MyCode/UItem.h"
 #include "InventoryWidget.generated.h"
 
 /**
@@ -25,10 +27,10 @@ protected:
 public:
 
 	UFUNCTION(BlueprintCallable,  Category = "Inventory")
-	void InitializeInventory(int32 NumSlots);
+	void InitializeInventory(int32 NumSlots, UUniformGridPanel* GridPanel);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void AddItemToInventory(const FString& ItemName, int32 SlotIndex);
+	void AddItemToInventory(UItem* Item, int32 SlotIndex);
 
 
 };

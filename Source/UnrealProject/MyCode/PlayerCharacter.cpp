@@ -97,7 +97,10 @@ void APlayerCharacter::Interact()
 			{
 				if(InventoryWidget)
 				{
-					InventoryWidget.GetDefaultObject()->AddItemToInventory(NewItem->ItemName, 0);
+					InventoryWidget.GetDefaultObject()->AddItemToInventory(
+						NewItem,
+						PlayerInventory->GetSlotNum(NewItem)
+					);
 				}
 				PickedUpActor->Destroy();
 			}
