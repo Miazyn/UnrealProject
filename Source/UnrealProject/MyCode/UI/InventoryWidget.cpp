@@ -5,17 +5,17 @@
 #include "InventoryItemWidget.h"
 #include "Components/UniformGridPanel.h"
 
-void UInventoryWidget::InitializeInventory(int32 NumSlots, UUniformGridPanel* GridPanel)
+
+TArray<UInventoryItemWidget*> UInventoryWidget::InitializeInventory(int32 NumSlots, UUniformGridPanel* GridPanel)
 {
 	InventorySlots.Empty();
 
 	if(!GridPanel)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Missing GridPanel Reference."));
-		return;
+		InventorySlots.Empty();
+		return InventorySlots;
 	}
-	UE_LOG(LogTemp, Log, TEXT("Inventory Initialized with: %d"), NumSlots);
-
 	
 	for (int32 i = 0; i < NumSlots; ++i)
 	{
@@ -24,17 +24,21 @@ void UInventoryWidget::InitializeInventory(int32 NumSlots, UUniformGridPanel* Gr
 
 		GridPanel->AddChildToUniformGrid(ItemWidget, 0, i);
 	}
-	
+	UE_LOG(LogTemp, Log, TEXT("Inventory Initialized with: %d"), NumSlots);
+	return InventorySlots;
 }
 
-void UInventoryWidget::AddItemToInventory(UItem* Item, int32 SlotIndex)
+void UInventoryWidget::AddItemToInventory(UItem* Item, int32 SlotIndex, TArray<UInventoryItemWidget*> RefArray)
 {
-	UE_LOG(LogTemp, Log, TEXT("Inventory added item: %s"), *Item->ItemName);
 	
-	
-	if (InventorySlots.IsValidIndex(SlotIndex))
+	if (RefArray.IsValidIndex(SlotIndex))
 	{
-		InventorySlots[SlotIndex]->InventorySlotItem = Item;
+		RefArray[SlotIndex]->InventorySlotItem = Item;
+		UE_LOG(LogTemp, Log, TEXT("Inventory added item: %s"), *Item->ItemName);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Log, TEXT("Invalid Inventory Slot %d Array Size %d"), SlotIndex, RefArray.Num());
 	}
 	
 }

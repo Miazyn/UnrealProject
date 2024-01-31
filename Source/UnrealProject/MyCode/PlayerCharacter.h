@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "UInventoryComponent.h"
 #include "GameFramework/Character.h"
+#include "UI/InventoryItemWidget.h"
 #include "PlayerCharacter.generated.h"
 
 UCLASS()
@@ -28,6 +29,9 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	TArray<UInventoryItemWidget*> ItemWidgets;
 	
 protected:
 	// Called when the game starts or when spawned
@@ -44,6 +48,4 @@ private:
 	void LookRight(float AxisValue);
 
 	void Interact();
-
-
 };

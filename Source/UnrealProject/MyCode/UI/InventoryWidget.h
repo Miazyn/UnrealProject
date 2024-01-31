@@ -27,10 +27,10 @@ protected:
 public:
 
 	UFUNCTION(BlueprintCallable,  Category = "Inventory")
-	void InitializeInventory(int32 NumSlots, UUniformGridPanel* GridPanel);
+	TArray<UInventoryItemWidget*> InitializeInventory(int32 NumSlots, UUniformGridPanel* GridPanel);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void AddItemToInventory(UItem* Item, int32 SlotIndex);
+	void AddItemToInventory(UItem* Item, int32 SlotIndex, TArray<UInventoryItemWidget*> RefArray);
 
 
 };
