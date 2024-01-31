@@ -21,17 +21,25 @@ void UInventoryItemWidget::NativeOnDragDetected(const FGeometry& InGeometry, con
 {
 	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
 
+	if(InventorySlotItem == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Invalid DragOperation"));
+		return;
+	}
+	
 	UDragDrop* DragWidget = Cast<UDragDrop>(
 		UWidgetBlueprintLibrary::CreateDragDropOperation(UDragDrop::StaticClass())
 		);
 	this->SetVisibility(ESlateVisibility::HitTestInvisible);
 
-	DragWidget->WidgetReference = this;
-	DragWidget->Pivot = EDragPivot::MouseDown;
-	DragWidget->DefaultDragVisual = this;
-	DragOffset = InGeometry.AbsoluteToLocal(InMouseEvent.GetScreenSpacePosition());
+	if(DragWidget){
+		DragWidget->WidgetReference = this;
+		DragWidget->Pivot = EDragPivot::MouseDown;
+		DragWidget->DefaultDragVisual = this;
+		DragOffset = InGeometry.AbsoluteToLocal(InMouseEvent.GetScreenSpacePosition());
 
-	OutOperation = DragWidget;
+		OutOperation = DragWidget;
+	}
 }
 
 bool UInventoryItemWidget::NativeOnDragOver(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
@@ -47,14 +55,20 @@ void UInventoryItemWidget::NativeOnDragLeave(const FDragDropEvent& InDragDropEve
 	Super::NativeOnDragLeave(InDragDropEvent, InOperation);
 
 	UE_LOG(LogTemp, Log, TEXT("Exit area"));
-	RemoveFromParent();
 }
 
 bool UInventoryItemWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
                                         UDragDropOperation* InOperation)
 {
-	//When sth is dropped ontop of The InventoryItemWidget
+	//When sth is dropped on top of The InventoryItemWidget
+	UE_LOG(LogTemp, Log, TEXT("Drop Item inside of InventoryItemWidget"));
 	return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
+}
+
+void UInventoryItemWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+	OriginalPos = GetRenderTransform().Translation;
 }
 
 
