@@ -2,6 +2,8 @@
 
 
 #include "InventoryWidget.h"
+
+#include "DragDrop.h"
 #include "InventoryItemWidget.h"
 #include "Components/UniformGridPanel.h"
 
@@ -42,6 +44,29 @@ TArray<UInventoryItemWidget*> UInventoryWidget::AddItemToInventory(UItem* Item, 
 	}
 
 	return  RefArray;
+}
+
+bool UInventoryWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
+	UDragDropOperation* InOperation)
+{
+	Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
+
+	UDragDrop* DragWidgetResult = Cast<UDragDrop>(InOperation);
+
+	if(!IsValid(DragWidgetResult))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Invalid DragDrop Widget"));
+		return false;
+	}
+
+	const FVector2D DragWindowOffset = InGeometry.AbsoluteToLocal(InDragDropEvent.GetScreenSpacePosition());
+	const FVector2D DragWindowOffsetResult = DragWindowOffset - DragWidgetResult->DragOffset;
+
+	DragWidgetResult->WidgetReference->AddToViewport();
+	DragWidgetResult->WidgetReference->SetVisibility(ESlateVisibility::Visible);
+	DragWidgetResult->WidgetReference->SetPositionInViewport(DragWindowOffsetResult, false);
+
+	return true;
 }
 
 
