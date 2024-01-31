@@ -97,7 +97,9 @@ void APlayerCharacter::Interact()
 			{
 				if(InventoryWidget)
 				{
-					if(!ItemWidgets.IsEmpty()){
+					if(!ItemWidgets.IsEmpty())
+					{
+						ItemWidgets =
 						InventoryWidget.GetDefaultObject()->AddItemToInventory(
 							NewItem,
 							PlayerInventory->GetSlotNum(NewItem),

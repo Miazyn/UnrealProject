@@ -28,7 +28,7 @@ TArray<UInventoryItemWidget*> UInventoryWidget::InitializeInventory(int32 NumSlo
 	return InventorySlots;
 }
 
-void UInventoryWidget::AddItemToInventory(UItem* Item, int32 SlotIndex, TArray<UInventoryItemWidget*> RefArray)
+TArray<UInventoryItemWidget*> UInventoryWidget::AddItemToInventory(UItem* Item, int32 SlotIndex, TArray<UInventoryItemWidget*> RefArray)
 {
 	
 	if (RefArray.IsValidIndex(SlotIndex))
@@ -40,7 +40,8 @@ void UInventoryWidget::AddItemToInventory(UItem* Item, int32 SlotIndex, TArray<U
 	{
 		UE_LOG(LogTemp, Log, TEXT("Invalid Inventory Slot %d Array Size %d"), SlotIndex, RefArray.Num());
 	}
-	
+
+	return  RefArray;
 }
 
 

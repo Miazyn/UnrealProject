@@ -30,7 +30,7 @@ public:
 	TArray<UInventoryItemWidget*> InitializeInventory(int32 NumSlots, UUniformGridPanel* GridPanel);
 
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void AddItemToInventory(UItem* Item, int32 SlotIndex, TArray<UInventoryItemWidget*> RefArray);
+	TArray<UInventoryItemWidget*> AddItemToInventory(UItem* Item, int32 SlotIndex, TArray<UInventoryItemWidget*> RefArray);
 
 
 };
