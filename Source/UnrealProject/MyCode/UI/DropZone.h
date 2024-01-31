@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "UnrealProject/MyCode/UItem.h"
 #include "DropZone.generated.h"
+
 
 /**
  * 
@@ -18,4 +20,7 @@ protected:
 	virtual bool NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 	virtual void NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation) override;
 
+public:
+
+	void DropItem(UItem* DroppedItem);
 };

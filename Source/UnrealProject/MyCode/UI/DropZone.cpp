@@ -7,6 +7,8 @@
 #include "InventoryItemWidget.h"
 #include "InventoryWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
+#include "Kismet/GameplayStatics.h"
+#include "UnrealProject/MyCode/PlayerCharacter.h"
 
 bool UDropZone::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
                              UDragDropOperation* InOperation)
@@ -33,6 +35,8 @@ bool UDropZone::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& 
 
 					Widget->SetVisibility(ESlateVisibility::Visible);
 					
+					//Spawn Items in / Drop from Inventory UI & PlayerChar
+					DropItem(Widget->InventorySlotItem);
 					UE_LOG(LogTemp,Log, TEXT("Dropped %s"), *Widget->InventorySlotItem->ItemName);
 				}
 			}
@@ -47,4 +51,16 @@ void UDropZone::NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDr
 	Super::NativeOnDragLeave(InDragDropEvent, InOperation);
 
 	UE_LOG(LogTemp, Log, TEXT("Leave on DropZone"));
+}
+
+void UDropZone::DropItem(UItem* DroppedItem)
+{
+	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+
+	if(PlayerPawn)
+	{
+		APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(PlayerPawn);
+
+		PlayerCharacter->PlayerInventory->RemoveItem(DroppedItem, 1);
+	}
 }
