@@ -7,6 +7,7 @@
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Blueprint/SlateBlueprintLibrary.h"
 
+
 FReply UInventoryItemWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
 	Super::NativeOnMouseButtonDown(InGeometry, InMouseEvent);
@@ -33,12 +34,29 @@ void UInventoryItemWidget::NativeOnDragDetected(const FGeometry& InGeometry, con
 	OutOperation = DragWidget;
 }
 
+bool UInventoryItemWidget::NativeOnDragOver(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
+	UDragDropOperation* InOperation)
+{
+	UE_LOG(LogTemp, Log, TEXT("Drag is over area"));
+	return Super::NativeOnDragOver(InGeometry, InDragDropEvent, InOperation);
+}
+
+
 void UInventoryItemWidget::NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
 {
 	Super::NativeOnDragLeave(InDragDropEvent, InOperation);
 
+	UE_LOG(LogTemp, Log, TEXT("Exit area"));
 	RemoveFromParent();
 }
+
+bool UInventoryItemWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
+                                        UDragDropOperation* InOperation)
+{
+	//When sth is dropped ontop of The InventoryItemWidget
+	return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
+}
+
 
 void UInventoryItemWidget::NativeOnInitialized()
 {
