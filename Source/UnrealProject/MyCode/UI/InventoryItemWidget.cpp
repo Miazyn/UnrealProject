@@ -125,8 +125,16 @@ void UInventoryItemWidget::SwapItemWidgets(UInventoryItemWidget* DraggedWidget)
 	{
 		UItem* DraggedItem = DraggedWidget->InventorySlotItem;
 
+		PlayerInventory->SwapItemSlots
+		(CurrentItem,
+			this->SlotNumber,
+			DraggedItem,
+			DraggedWidget->SlotNumber
+			);
+		
 		this->InventorySlotItem = DraggedItem;
 		DraggedWidget->InventorySlotItem = CurrentItem;
+
 		
 	}//Slot is empty, reassign
 	else

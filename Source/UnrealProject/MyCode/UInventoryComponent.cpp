@@ -155,7 +155,30 @@ int UInventoryComponent::GetSlotNum(UItem* QueryItem)
 
 void UInventoryComponent::SwapItemSlots(UItem* OriginalItem, int OriginalSlot, UItem* ItemSwap, int SwapSlot)
 {
-	
+	UE_LOG(LogTemp, Log, TEXT("Swap Item Slots in Inventory here."));
+
+	if(InventorySlots.IsValidIndex(OriginalSlot) && InventorySlots.IsValidIndex(SwapSlot))
+	{
+		if(InventorySlots[OriginalSlot].Item != OriginalItem || InventorySlots[SwapSlot].Item != ItemSwap)
+		{
+			UE_LOG(LogTemp, Error, TEXT("Cannot swap because Index is not same Item as Widget Index!!!"))
+			return;
+		}
+		int OgAmount = InventorySlots[OriginalSlot].Amount;
+		int OgNum = InventorySlots[OriginalSlot].SlotNumber;
+
+		int SwapAmount = InventorySlots[SwapSlot].Amount;
+		int SwapNum = InventorySlots[SwapSlot].SlotNumber;
+
+		InventorySlots[OriginalSlot].Item = ItemSwap;
+		InventorySlots[OriginalSlot].Amount = SwapAmount;
+		InventorySlots[OriginalSlot].SlotNumber = SwapNum;
+
+		InventorySlots[SwapSlot].Item = OriginalItem;
+		InventorySlots[SwapSlot].Amount = OgAmount;
+		InventorySlots[SwapSlot].SlotNumber = OgNum;
+	}
+	UE_LOG(LogTemp, Log, TEXT("Successful swapped inventory Slots."));
 }
 
 void UInventoryComponent::ReassignItemSlot(UItem* Item, int OriginalSlot, int NewSlot)
