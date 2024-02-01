@@ -44,6 +44,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Inventory")
 	int GetSlotNum(UItem* QueryItem);
 
+	void SwapItemSlots(UItem* OriginalItem, int OriginalSlot, UItem* ItemSwap, int SwapSlot);
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Inventory")
 	UItem* NewItem;
 

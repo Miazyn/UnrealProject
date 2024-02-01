@@ -6,6 +6,9 @@
 #include "DragDrop.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Blueprint/SlateBlueprintLibrary.h"
+#include "Kismet/GameplayStatics.h"
+#include "UnrealProject/MyCode/PlayerCharacter.h"
+#include "UnrealProject/MyCode/UInventoryComponent.h"
 
 
 FReply UInventoryItemWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
@@ -61,8 +64,22 @@ bool UInventoryItemWidget::NativeOnDrop(const FGeometry& InGeometry, const FDrag
                                         UDragDropOperation* InOperation)
 {
 	//When sth is dropped on top of The InventoryItemWidget
+	Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
+
 	UE_LOG(LogTemp, Log, TEXT("Drop Item inside of InventoryItemWidget"));
-	return Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
+	if(InOperation)
+	{
+		UDragDrop* DragDropOp = Cast<UDragDrop>(InOperation);
+		if(DragDropOp)
+		{
+			UInventoryItemWidget* OtherWidget = Cast<UInventoryItemWidget>(DragDropOp->WidgetReference);
+			if(OtherWidget)
+			{
+				//Logic of swap Items
+			}
+		}
+	}
+	return  true;
 }
 
 void UInventoryItemWidget::NativeConstruct()
@@ -72,7 +89,46 @@ void UInventoryItemWidget::NativeConstruct()
 }
 
 
-void UInventoryItemWidget::NativeOnInitialized()
+void UInventoryItemWidget::SwapItemWidgets(UInventoryItemWidget* OtherWidget)
 {
-	Super::NativeOnInitialized();
+	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	
+	UItem* CurrentItem = this->InventorySlotItem;
+
+	if(!CurrentItem)
+	{
+		UE_LOG(LogTemp, Error, TEXT("No Item found on current widget."));
+		return;
+	}
+	if(!PlayerPawn)
+	{
+		UE_LOG(LogTemp, Error, TEXT("No Player Pawn found."));
+		return;
+	}
+	APlayerCharacter* PlayerCharacter =
+		Cast<APlayerCharacter>(PlayerPawn);
+
+	if(!PlayerCharacter)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Cannot cast to PlayerCharacter!"));
+		return;
+	}
+	UInventoryComponent* PlayerInventory = PlayerCharacter->PlayerInventory;
+	if(!PlayerInventory)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Cannot find Player Inventory!"));
+		return;
+	}
+	
+	//If other slot contains other item
+	if(OtherWidget->InventorySlotItem)
+	{
+		UItem* OtherItem = OtherWidget->InventorySlotItem;
+		
+	}//If other slot is empty
+	else
+	{
+		
+	}
 }
+
