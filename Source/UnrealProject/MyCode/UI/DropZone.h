@@ -25,5 +25,5 @@ public:
 	void DropItem(UInventoryItemWidget* Widget);
 	void SpawnPickUp(UItem* DroppedItem, FVector SpawnLocation);
 	
-	float SpawnOffsetDistance = 100.f;
+	float SpawnOffsetDistance = 300.f;
 };

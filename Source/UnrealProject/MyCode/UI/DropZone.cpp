@@ -85,7 +85,7 @@ void UDropZone::DropItem(UInventoryItemWidget* Widget)
 	Widget->InventorySlotItem = nullptr;
 
 	//TODO: Spawn In new Item here
-	SpawnPickUp(DroppedItem, PlayerCharacter->GetActorLocation());
+	SpawnPickUp(DroppedItem, SpawnLocation);
 }
 
 void UDropZone::SpawnPickUp(UItem* DroppedItem, FVector SpawnLocation)
