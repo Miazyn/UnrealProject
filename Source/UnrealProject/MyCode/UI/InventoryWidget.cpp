@@ -24,6 +24,8 @@ TArray<UInventoryItemWidget*> UInventoryWidget::InitializeInventory(int32 NumSlo
 		UInventoryItemWidget* ItemWidget = CreateWidget<UInventoryItemWidget>(GetWorld(), ItemWidgetClass);
 		InventorySlots.Add(ItemWidget);
 
+		ItemWidget->SlotNumber = i;
+		
 		GridPanel->AddChildToUniformGrid(ItemWidget, 0, i);
 	}
 	UE_LOG(LogTemp, Log, TEXT("Inventory Initialized with: %d"), NumSlots);

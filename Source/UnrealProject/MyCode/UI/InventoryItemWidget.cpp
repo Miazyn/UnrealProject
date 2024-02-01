@@ -133,7 +133,13 @@ void UInventoryItemWidget::SwapItemWidgets(UInventoryItemWidget* DraggedWidget)
 	{
 		this->InventorySlotItem = DraggedWidget->InventorySlotItem;
 		DraggedWidget->InventorySlotItem = nullptr;
-		
+
+		PlayerInventory->ReassignItemSlot
+		(
+			this->InventorySlotItem,
+			DraggedWidget->SlotNumber,
+			this->SlotNumber
+			);
 	}
 	DraggedWidget->SetVisibility(ESlateVisibility::Visible);
 	this->SetVisibility(ESlateVisibility::Visible);

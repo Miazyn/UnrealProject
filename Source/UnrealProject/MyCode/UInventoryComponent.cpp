@@ -160,7 +160,24 @@ void UInventoryComponent::SwapItemSlots(UItem* OriginalItem, int OriginalSlot, U
 
 void UInventoryComponent::ReassignItemSlot(UItem* Item, int OriginalSlot, int NewSlot)
 {
-	
+	if(InventorySlots.IsValidIndex(OriginalSlot) && InventorySlots.IsValidIndex(NewSlot))
+	{
+		if(InventorySlots[OriginalSlot].Item != Item)
+		{
+			UE_LOG(LogTemp, Error, TEXT("Cannot reassign because Index is not same Item as Widget Index!!!"))
+			return;
+		}
+		int ItemAmount = InventorySlots[OriginalSlot].Amount;
+		int SlotNum = InventorySlots[OriginalSlot].SlotNumber;
+		
+		InventorySlots[OriginalSlot].Item = nullptr;
+		
+		InventorySlots[NewSlot].Item = Item;
+		InventorySlots[NewSlot].Amount = ItemAmount;
+		InventorySlots[NewSlot].SlotNumber = SlotNum;
+
+		UE_LOG(LogTemp, Log, TEXT("Successful reassigning of inventory Slot"));
+	}
 }
 
 
