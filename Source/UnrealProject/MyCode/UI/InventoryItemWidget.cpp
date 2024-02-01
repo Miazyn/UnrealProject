@@ -75,7 +75,7 @@ bool UInventoryItemWidget::NativeOnDrop(const FGeometry& InGeometry, const FDrag
 			UInventoryItemWidget* OtherWidget = Cast<UInventoryItemWidget>(DragDropOp->WidgetReference);
 			if(OtherWidget)
 			{
-				//Logic of swap Items
+				SwapItemWidgets(OtherWidget);
 			}
 		}
 	}
@@ -89,17 +89,12 @@ void UInventoryItemWidget::NativeConstruct()
 }
 
 
-void UInventoryItemWidget::SwapItemWidgets(UInventoryItemWidget* OtherWidget)
+void UInventoryItemWidget::SwapItemWidgets(UInventoryItemWidget* DraggedWidget)
 {
 	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	
 	UItem* CurrentItem = this->InventorySlotItem;
 
-	if(!CurrentItem)
-	{
-		UE_LOG(LogTemp, Error, TEXT("No Item found on current widget."));
-		return;
-	}
 	if(!PlayerPawn)
 	{
 		UE_LOG(LogTemp, Error, TEXT("No Player Pawn found."));
@@ -119,16 +114,28 @@ void UInventoryItemWidget::SwapItemWidgets(UInventoryItemWidget* OtherWidget)
 		UE_LOG(LogTemp, Error, TEXT("Cannot find Player Inventory!"));
 		return;
 	}
-	
-	//If other slot contains other item
-	if(OtherWidget->InventorySlotItem)
+	if(!DraggedWidget->InventorySlotItem)
 	{
-		UItem* OtherItem = OtherWidget->InventorySlotItem;
+		UE_LOG(LogTemp, Error, TEXT("Dragged Widget does not contain an Item!"));
+		return;
+	}
+
+	//Slot is not empty, swap perform
+	if(CurrentItem)
+	{
+		UItem* DraggedItem = DraggedWidget->InventorySlotItem;
+
+		this->InventorySlotItem = DraggedItem;
+		DraggedWidget->InventorySlotItem = CurrentItem;
 		
-	}//If other slot is empty
+	}//Slot is empty, reassign
 	else
 	{
+		this->InventorySlotItem = DraggedWidget->InventorySlotItem;
+		DraggedWidget->InventorySlotItem = nullptr;
 		
 	}
+	DraggedWidget->SetVisibility(ESlateVisibility::Visible);
+	this->SetVisibility(ESlateVisibility::Visible);
 }
 

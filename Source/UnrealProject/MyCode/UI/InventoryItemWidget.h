@@ -37,6 +37,6 @@ protected:
 	virtual void NativeConstruct() override;
 	FVector2D DragOffset;
 
-	void SwapItemWidgets(UInventoryItemWidget* OtherWidget);
+	void SwapItemWidgets(UInventoryItemWidget* DraggedWidget);
 	
 };

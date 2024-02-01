@@ -155,6 +155,12 @@ int UInventoryComponent::GetSlotNum(UItem* QueryItem)
 
 void UInventoryComponent::SwapItemSlots(UItem* OriginalItem, int OriginalSlot, UItem* ItemSwap, int SwapSlot)
 {
+	
+}
+
+void UInventoryComponent::ReassignItemSlot(UItem* Item, int OriginalSlot, int NewSlot)
+{
+	
 }
 
 
