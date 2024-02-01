@@ -35,5 +35,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Data")
 	UUItemDataAsset* ItemDataAsset;
 
-	
+private:
+
+	float SphereScale = 5.f;
+	float BaseMeshScale = 0.25f;
 };

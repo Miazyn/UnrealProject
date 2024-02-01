@@ -15,7 +15,16 @@ AAPickUp::AAPickUp()
 
 	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base Mesh"));
 	BaseMesh->SetupAttachment((RootComponent));
-	
+
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> MeshAsset(TEXT("/Game/StarterContent/Shapes/Shape_Sphere"));
+	if (MeshAsset.Succeeded())
+	{
+		UE_LOG(LogTemp, Log, TEXT("Found Basic Mesh"));
+		BaseMesh->SetStaticMesh(MeshAsset.Object);
+	}
+
+	SphereComp->SetWorldScale3D(FVector(SphereScale, SphereScale, SphereScale));
+	BaseMesh->SetWorldScale3D(FVector(BaseMeshScale, BaseMeshScale, BaseMeshScale));
 }
 
 // Called when the game starts or when spawned

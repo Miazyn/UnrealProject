@@ -80,22 +80,19 @@ void UDropZone::DropItem(UInventoryItemWidget* Widget)
 	
 	PlayerCharacter->PlayerInventory->RemoveItem(DroppedItem, 1);
 	
-	//FVector SpawnLocation = PlayerCharacter->GetActorLocation() + PlayerCharacter->GetActorForwardVector() * SpawnOffsetDistance;
+	FVector SpawnLocation = PlayerCharacter->GetActorLocation() + PlayerCharacter->GetActorForwardVector() * SpawnOffsetDistance;
 
 	Widget->InventorySlotItem = nullptr;
 
 	//TODO: Spawn In new Item here
-	//SpawnPickUp(DroppedItem, SpawnLocation);
+	SpawnPickUp(DroppedItem, PlayerCharacter->GetActorLocation());
 }
 
 void UDropZone::SpawnPickUp(UItem* DroppedItem, FVector SpawnLocation)
 {
-	if (AAPickUp* NewPickUp = GetWorld()->SpawnActor<AAPickUp>(AAPickUp::StaticClass(), SpawnLocation, FRotator::ZeroRotator))
-	{
-		NewPickUp->ItemDataAsset = DroppedItem->ItemDataAsset;
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Failed to spawn APickUp"));
-	}
+	UE_LOG(LogTemp, Log, TEXT("Spawning Actor"));
+	AAPickUp* NewPickUp =
+		GetWorld()->SpawnActor<AAPickUp>(AAPickUp::StaticClass(), SpawnLocation, FRotator::ZeroRotator);
+	NewPickUp->ItemDataAsset = DroppedItem->ItemDataAsset;
+	
 }
