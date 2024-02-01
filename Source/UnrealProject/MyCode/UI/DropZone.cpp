@@ -7,7 +7,9 @@
 #include "InventoryItemWidget.h"
 #include "InventoryWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 #include "Kismet/GameplayStatics.h"
+#include "UnrealProject/MyCode/APickUp.h"
 #include "UnrealProject/MyCode/PlayerCharacter.h"
 
 bool UDropZone::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
@@ -36,8 +38,7 @@ bool UDropZone::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& 
 					Widget->SetVisibility(ESlateVisibility::Visible);
 					
 					//Spawn Items in / Drop from Inventory UI & PlayerChar
-					DropItem(Widget->InventorySlotItem);
-					UE_LOG(LogTemp,Log, TEXT("Dropped %s"), *Widget->InventorySlotItem->ItemName);
+					DropItem(Widget);
 				}
 			}
 		
@@ -53,14 +54,48 @@ void UDropZone::NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDr
 	UE_LOG(LogTemp, Log, TEXT("Leave on DropZone"));
 }
 
-void UDropZone::DropItem(UItem* DroppedItem)
+void UDropZone::DropItem(UInventoryItemWidget* Widget)
 {
 	APawn* PlayerPawn = UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
+	UItem* DroppedItem = Widget->InventorySlotItem;
 
-	if(PlayerPawn)
+	if(!PlayerPawn)
 	{
-		APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(PlayerPawn);
+		UE_LOG(LogTemp, Error, TEXT("No Player Pawn found!"));
+		return;
+	}
+	if(!DroppedItem)
+	{
+		UE_LOG(LogTemp, Error, TEXT("No item reference found!"));
+		return;
+	}
+	
+	APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>(PlayerPawn);
 
-		PlayerCharacter->PlayerInventory->RemoveItem(DroppedItem, 1);
+	if(!PlayerCharacter)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Cannot cast to PlayerCharacter."));
+		return;
+	}
+	
+	PlayerCharacter->PlayerInventory->RemoveItem(DroppedItem, 1);
+	
+	//FVector SpawnLocation = PlayerCharacter->GetActorLocation() + PlayerCharacter->GetActorForwardVector() * SpawnOffsetDistance;
+
+	Widget->InventorySlotItem = nullptr;
+
+	//TODO: Spawn In new Item here
+	//SpawnPickUp(DroppedItem, SpawnLocation);
+}
+
+void UDropZone::SpawnPickUp(UItem* DroppedItem, FVector SpawnLocation)
+{
+	if (AAPickUp* NewPickUp = GetWorld()->SpawnActor<AAPickUp>(AAPickUp::StaticClass(), SpawnLocation, FRotator::ZeroRotator))
+	{
+		NewPickUp->ItemDataAsset = DroppedItem->ItemDataAsset;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Failed to spawn APickUp"));
 	}
 }

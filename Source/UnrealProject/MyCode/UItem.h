@@ -2,7 +2,10 @@
 
 #pragma once
 
+class UUItemDataAsset;
+
 #include "CoreMinimal.h"
+
 //#include "UObject/NoExportTypes.h"
 #include "UItem.generated.h"
 
@@ -39,6 +42,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category= "Item")
 	UTexture2D* ItemImage;
+
+	UPROPERTY()
+	UUItemDataAsset* ItemDataAsset;
 
 	virtual void UseItem();
 };

@@ -79,17 +79,18 @@ void APlayerCharacter::Interact()
 	{
 		AAPickUp* PickedUpActor = Cast<AAPickUp>(OverlappingActor);
 		
-			UItem* NewItem = NewObject<UItem>(this, UItem::StaticClass());
+		UItem* NewItem = NewObject<UItem>(this, UItem::StaticClass());
 
-			FItemStruct ItemStruct = PickedUpActor->ItemDataAsset->GetItemInfo();
+		FItemStruct ItemStruct = PickedUpActor->ItemDataAsset->GetItemInfo();
 
-			NewItem->ItemName = ItemStruct.ItemName;
-			NewItem->ItemDescription = ItemStruct.ItemDescription;
-			NewItem->ItemId = ItemStruct.ItemId;
-			NewItem->ItemType = ItemStruct.ItemType;
-			NewItem->ItemImage = ItemStruct.ItemIcon;
+		NewItem->ItemName = ItemStruct.ItemName;
+		NewItem->ItemDescription = ItemStruct.ItemDescription;
+		NewItem->ItemId = ItemStruct.ItemId;
+		NewItem->ItemType = ItemStruct.ItemType;
+		NewItem->ItemImage = ItemStruct.ItemIcon;
+		NewItem->ItemDataAsset = PickedUpActor->ItemDataAsset;
 
-			UE_LOG(LogTemp, Warning, TEXT("Working PickUp. %s Also %s"), *NewItem->ItemName, *NewItem->ItemDescription);
+		UE_LOG(LogTemp, Warning, TEXT("Working PickUp. %s Also %s"), *NewItem->ItemName, *NewItem->ItemDescription);
 
 		if(PlayerInventory)
 		{

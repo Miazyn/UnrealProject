@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InventoryItemWidget.h"
 #include "Blueprint/UserWidget.h"
-#include "UnrealProject/MyCode/UItem.h"
 #include "DropZone.generated.h"
 
 
@@ -22,5 +22,8 @@ protected:
 
 public:
 
-	void DropItem(UItem* DroppedItem);
+	void DropItem(UInventoryItemWidget* Widget);
+	void SpawnPickUp(UItem* DroppedItem, FVector SpawnLocation);
+	
+	float SpawnOffsetDistance = 100.f;
 };
