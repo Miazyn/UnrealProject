@@ -39,7 +39,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Inventory")
 	TSubclassOf<class UInventoryWidget> InventoryWidget;
-	
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "LightCycle")
+	TSubclassOf<class ALightCycle> LightCycle;
 private:
 	void MoveForward(float AxisValue);
 	void LookUp(float AxisValue);

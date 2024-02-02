@@ -3,9 +3,11 @@
 
 #include "PlayerCharacter.h"
 
+#include "ALightCycle.h"
 #include "APickUp.h"
 #include "UItem.h"
 #include "UInventoryComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "UI/InventoryWidget.h"
 #include "UObject/ObjectRename.h"
 
@@ -26,7 +28,6 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
