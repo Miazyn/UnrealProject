@@ -48,7 +48,7 @@ void UInventoryItemWidget::NativeOnDragDetected(const FGeometry& InGeometry, con
 bool UInventoryItemWidget::NativeOnDragOver(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,
 	UDragDropOperation* InOperation)
 {
-	UE_LOG(LogTemp, Log, TEXT("Drag is over area"));
+	//UE_LOG(LogTemp, Log, TEXT("Drag is over area"));
 	return Super::NativeOnDragOver(InGeometry, InDragDropEvent, InOperation);
 }
 
@@ -57,7 +57,7 @@ void UInventoryItemWidget::NativeOnDragLeave(const FDragDropEvent& InDragDropEve
 {
 	Super::NativeOnDragLeave(InDragDropEvent, InOperation);
 
-	UE_LOG(LogTemp, Log, TEXT("Exit area"));
+	//UE_LOG(LogTemp, Log, TEXT("Exit area"));
 }
 
 bool UInventoryItemWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent,

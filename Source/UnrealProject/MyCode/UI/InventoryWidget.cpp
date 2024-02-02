@@ -5,7 +5,10 @@
 
 #include "DragDrop.h"
 #include "InventoryItemWidget.h"
+#include "InventorySlotWidget.h"
+#include "IPropertyTableColumn.h"
 #include "Components/UniformGridPanel.h"
+#include "Components/UniformGridSlot.h"
 
 
 TArray<UInventoryItemWidget*> UInventoryWidget::InitializeInventory(int32 NumSlots, UUniformGridPanel* GridPanel)
@@ -21,12 +24,35 @@ TArray<UInventoryItemWidget*> UInventoryWidget::InitializeInventory(int32 NumSlo
 	
 	for (int32 i = 0; i < NumSlots; ++i)
 	{
+		UInventorySlotWidget* SlotWidget = CreateWidget<UInventorySlotWidget>(GetWorld(), ItemSlotClass);
+		
 		UInventoryItemWidget* ItemWidget = CreateWidget<UInventoryItemWidget>(GetWorld(), ItemWidgetClass);
 		InventorySlots.Add(ItemWidget);
 
 		ItemWidget->SlotNumber = i;
+		ItemWidget->SetAlignmentInViewport(FVector2D(0.5f, 0.5f));
+		ItemWidget->SetRenderScale(FVector2D(1.0f, 1.0f));
+
+		SlotWidget->SetAlignmentInViewport(FVector2D(0.5f, 0.5f));
+		SlotWidget->SetRenderScale(FVector2D(1.0f, 1.0f));
+
+		UUniformGridSlot* SlotWidgetGrid = Cast<UUniformGridSlot>(GridPanel->AddChildToUniformGrid(SlotWidget, 0, i));
+		UUniformGridSlot* ItemWidgetGrid = Cast<UUniformGridSlot>(GridPanel->AddChildToUniformGrid(ItemWidget, 0, i));
 		
-		GridPanel->AddChildToUniformGrid(ItemWidget, 0, i);
+		//GridPanel->AddChildToUniformGrid(SlotWidget, 0, i);
+		//GridPanel->AddChildToUniformGrid(ItemWidget, 0, i);
+
+		if(SlotWidgetGrid)
+		{
+			SlotWidgetGrid->SetHorizontalAlignment(HAlign_Fill);
+			SlotWidgetGrid->SetVerticalAlignment(VAlign_Fill);
+		}
+		if(ItemWidgetGrid)
+		{
+			ItemWidgetGrid->SetHorizontalAlignment(HAlign_Fill);
+			ItemWidgetGrid->SetVerticalAlignment(VAlign_Fill);
+		}
+		
 	}
 	UE_LOG(LogTemp, Log, TEXT("Inventory Initialized with: %d"), NumSlots);
 	return InventorySlots;

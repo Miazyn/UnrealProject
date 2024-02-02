@@ -19,6 +19,9 @@ class UNREALPROJECT_API UInventoryWidget : public UUserWidget
 protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Inventory")
+	TSubclassOf<class UInventorySlotWidget> ItemSlotClass;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Inventory")
 	TSubclassOf<class UInventoryItemWidget> ItemWidgetClass;
        
 	UPROPERTY(BlueprintReadOnly, Category = "Inventory")
